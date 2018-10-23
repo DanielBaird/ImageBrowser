@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Image Browser Test</title>
+
+	<!-- leaflet's css -->
+	<link rel="stylesheet" href="./libs/leaflet.1.3.4/leaflet.css" />
+
+	<!-- mouse position shower's css -->
+	<link rel="stylesheet" href="./libs/Leaflet.MousePosition.2018-10-23/src/L.Control.MousePosition.css" />
+
+	<style>
+		/* some page layout */
+		html, body { 
+			font-family: sans-serif;
+			padding: 0;
+			margin: 0;
+			height: 100vh;
+		}
+		header, footer { 
+			background-color: #069; 
+			padding: 0 1rem;
+			color: #cdf;
+		}
+		header {
+			height: 5rem;
+			line-height: 5rem;
+			font-size: 2rem;
+		}
+		footer {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: 2rem;
+			line-height: 2rem;
+			font-size: 1rem;
+		}
+
+		/* make the browsing window fill the screen between the header and footer */
+		#browser {
+			position: absolute;
+			top: 5rem; /* height of header */
+			bottom: 2rem; /* height of footer */
+			left: 0;
+			right: 0;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<header>Image Browser</header>
+
+	<div id="browser"></div>
+
+	<footer>proof of concept</footer>
+
+	<!-- include leaflet -->
+	<script src="./libs/leaflet.1.3.4/leaflet.js"></script>
+
+	<!-- include the mouse position show-er -->
+	<script src="./libs/Leaflet.MousePosition.2018-10-23/src/L.Control.MousePosition.js"></script>
+
+	<!-- do the work -->
+	<script>
+		// create a map using the "Simple" coordinate reference 
+		// scheme, coz we aren't making a geographic map
+		var crs = L.CRS.Simple
+		crs.infinite = false
+		var map = L.map('browser', { crs: crs })
+
+		// add the thing that shows the mouse position
+		L.control.mousePosition().addTo(map)
+
+		// arbitrarily decide that the image is 100x100 "map units" in size
+		var bounds = [[0,0], [-100,100]]
+		// map.setMaxBounds(bounds)
+
+        L.tileLayer('./images/FG-94-UterusChoriocarcinoma/{z}/{x}/{y}.png', {
+            tms: true,
+            minZoom: 2,
+            maxZoom: 7,
+            attribution: 'Shashi',
+        }).addTo(map)
+
+		// zoom the map to the bounds we said
+		map.fitBounds(bounds)
+
+
+		map.setView([-50,50], 2)
+	</script>
+</body>
+</html>
+
+
+
+

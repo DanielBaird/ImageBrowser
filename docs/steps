@@ -1,0 +1,1 @@
+gdal2tiles.py --config GDAL_DATA="C:\Program Files\GDAL\gdal-data" --s_srs=null  --profile=raster -z 0-7 -v -w none FG-94-UterusChoriocarcinoma.tif tiles
